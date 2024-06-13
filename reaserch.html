@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parkinson's Disease Management</title>
+    <style>
+      /* Reset some default styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        background: #f4f4f4;
+        color: #333;
+      }
+
+      header {
+        background: #28a745;
+        color: #fff;
+        padding: 1em 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: 1.5em;
+      }
+
+      header nav ul {
+        list-style: none;
+        display: flex;
+        margin: 0;
+        padding: 0;
+      }
+
+      header nav ul li {
+        margin-left: 1em;
+      }
+
+      header nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        padding: 0.5em 1em;
+        border-radius: 3px;
+        transition: background 0.3s;
+      }
+
+      header nav ul li a:hover {
+        background: #218838;
+      }
+
+      .hero {
+        position: relative;
+        background: url("hero-image.jpg") no-repeat center center/cover;
+        color: #fff;
+        padding: 4em 0;
+        text-align: center;
+        overflow: hidden;
+      }
+
+      .hero .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.4); /* Adjust the brightness here */
+        z-index: 1;
+      }
+
+      .hero .container {
+        position: relative;
+        z-index: 2;
+      }
+
+      .hero h2 {
+        font-size: 2.5em;
+        margin-bottom: 0.5em;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .hero p {
+        font-size: 1.2em;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1em 0;
+      }
+
+      section {
+        padding: 4em 0;
+        text-align: center;
+      }
+
+      .about,
+      .services,
+      .technologies,
+      .contact {
+        background: #fff;
+        margin-bottom: 2em;
+      }
+
+      .about p,
+      .services p,
+      .technologies p,
+      .contact p {
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.6;
+        font-size: 1.1em;
+      }
+
+      .services .service {
+        margin: 2em 0;
+      }
+
+      .services img {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        margin-bottom: 1em;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .contact form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .contact form label {
+        margin: 0.5em 0 0.2em;
+        font-weight: bold;
+      }
+
+      .contact form input,
+      .contact form textarea {
+        padding: 0.5em;
+        margin-bottom: 1em;
+        width: 100%;
+        max-width: 400px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+      }
+
+      .contact form button {
+        padding: 0.5em 2em;
+        background: #28a745;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
+
+      .contact form button:hover {
+        background: #218838;
+      }
+
+      footer {
+        background: #28a745;
+        color: #fff;
+        text-align: center;
+        padding: 1em 0;
+      }
+
+      @media (max-width: 768px) {
+        header .container {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        header nav ul {
+          flex-direction: column;
+          width: 100%;
+        }
+
+        header nav ul li {
+          margin-left: 0;
+          width: 100%;
+        }
+
+        header nav ul li a {
+          width: 100%;
+          text-align: center;
+          padding: 1em 0;
+        }
+
+        .hero {
+          padding: 2em 0;
+        }
+
+        .services .service {
+          margin: 1em;
+        }
+      }
+
+      .technologies ul {
+        list-style-type: none;
+        padding: 0;
+      }
+
+      .technologies li {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1em;
+        padding: 1em;
+        background: #f4f4f4;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .technologies img {
+        max-width: 100px;
+        margin-right: 1em;
+      }
+
+      .technologies li div {
+        text-align: left;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>Parkinson's Disease Management</h1>
+        <nav>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#technologies">Technologies</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <section id="home" class="hero">
+      <div class="overlay"></div>
+      <div class="container">
+        <h2>
+          Integrating Emerging Technologies for Comprehensive Parkinson's
+          Disease Management
+        </h2>
+        <p>
+          Innovative solutions to improve the quality of life for individuals
+          with Parkinson's disease.
+        </p>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div class="container">
+        <h2>About Us</h2>
+        <p>
+          We are dedicated to leveraging cutting-edge technology to provide
+          comprehensive management solutions for Parkinson's disease. Our
+          multidisciplinary approach incorporates wearable devices, hypomimia,
+          voice analysis, and mobile applications to offer real-time monitoring,
+          early detection, and personalized care.
+        </p>
+      </div>
+    </section>
+
+    <section id="research-gap" class="research-gap">
+      <div class="container">
+        <h2>Research Gap</h2>
+        <p>
+          Despite significant advances in Parkinson's disease research, there
+          remains a critical need for more effective, real-time monitoring
+          solutions and early detection methods. Current approaches often lack
+          the integration of advanced technologies to provide comprehensive and
+          personalized care.
+        </p>
+      </div>
+    </section>
+
+    <section id="research-problem" class="research-problem">
+      <div class="container">
+        <h2>Research Problem</h2>
+        <p>
+          The primary challenge in managing Parkinson's disease lies in the
+          timely and accurate detection of symptoms, as well as the continuous
+          monitoring of disease progression. Existing methods are often
+          invasive, costly, and limited in scope, leading to delayed
+          interventions and suboptimal patient outcomes.
+        </p>
+      </div>
+    </section>
+
+    <section id="services" class="services">
+      <div class="container">
+        <h2>Our Services</h2>
+        <div class="service">
+          <img src="./assets/Picture1.jpg" alt="Wearable Device" />
+          <h3>Wearable Device for Real-Time Symptom Monitoring</h3>
+          <p>
+            Advanced sensor technologies and signal processing algorithms to
+            provide real-time feedback and precise symptom assessment.
+          </p>
+        </div>
+        <div class="service">
+          <img src="./assets/face2.jpg" alt="hypomimia Consultation" />
+          <h3>Facial Expression Detection</h3>
+          <p>
+            Enhanced hypomimia consultations with facial expression detection
+            for better assessment of emotional and motor symptom fluctuations.
+          </p>
+        </div>
+        <div class="service">
+          <img src="./assets/voice.jpeg" alt="Voice Analysis" />
+          <h3>Voice and Speech Analysis for Early Detection</h3>
+          <p>
+            Machine learning algorithms to detect subtle changes in voice
+            patterns and speech characteristics associated with early stages of
+            Parkinson's disease.
+          </p>
+        </div>
+        <div class="service">
+          <img src="./assets/mobile.webp" alt="Mobile App" />
+          <h3>
+            Mobile App for Early Symptoms Detection, Monitoring, and Recommended
+            Exercises
+          </h3>
+          <p>
+            Continuous background analysis using gyro-sensors, notifications
+            based on movement patterns, and exercise recommendations to minimize
+            early stage effects.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="development-timeline" class="development-timeline">
+      <div class="container">
+        <h2>Development Timeline</h2>
+        <div
+          style="display: flex; flex-wrap: wrap; justify-content: space-around"
+        >
+          <div>
+            <h3>Wearable Device</h3>
+            <canvas id="wearableDeviceChart"></canvas>
+          </div>
+          <div>
+            <h3>hypomimia Platform</h3>
+            <canvas id="hypomimiaChart"></canvas>
+          </div>
+          <div>
+            <h3>Voice Analysis</h3>
+            <canvas id="voiceAnalysisChart"></canvas>
+          </div>
+          <div>
+            <h3>Mobile Application</h3>
+            <canvas id="mobileAppChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="technologies" class="technologies">
+      <div class="container">
+        <h2>Technologies Used</h2>
+        <ul>
+          <li>
+            <img src="./assets/gyroscope.png" alt="Wearable Devices" />
+            <div>
+              <strong>Wearable Devices:</strong> Incorporate sensors such as
+              accelerometers and gyroscopes for precise motion tracking and
+              real-time symptom monitoring.
+            </div>
+          </li>
+          <li>
+            <img src="./assets/facialnipun.jpeg" alt="hypomimia Platforms" />
+            <div>
+              <strong>hypomimia Platforms:</strong> Utilize secure video
+              conferencing tools for remote consultations and patient
+              assessments.
+            </div>
+          </li>
+          <li>
+            <img src="./assets/machine.png" alt="Machine Learning" />
+            <div>
+              <strong>Machine Learning:</strong> Implement algorithms for voice
+              and speech analysis to detect early signs of Parkinson's disease.
+            </div>
+          </li>
+          <li>
+            <img src="./assets/mobile.webp" alt="Mobile Applications" />
+            <div>
+              <strong>Mobile Applications:</strong> Develop apps for continuous
+              monitoring, exercise recommendations, and user engagement.
+            </div>
+          </li>
+          <li>
+            <img src="./assets/data analytics.jpeg" alt="Data Analytics" />
+            <div>
+              <strong>Data Analytics:</strong> Analyze large sets of patient
+              data to identify patterns and improve predictive models.
+            </div>
+          </li>
+          <li>
+            <img src="./assets/cloud.png" alt="Cloud Computing" />
+            <div>
+              <strong>Cloud Computing:</strong> Use cloud services for data
+              storage, processing, and real-time access to information.
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="container">
+        <h2>Contact Us</h2>
+        <form id="contact-form">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required />
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" required></textarea>
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2024 Parkinson's Disease Management. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      document
+        .getElementById("contact-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          alert("Thank you for contacting us. We will get back to you soon!");
+        });
+
+      const ctx1 = document
+        .getElementById("wearableDeviceChart")
+        .getContext("2d");
+      const ctx2 = document.getElementById("hypomimiaChart").getContext("2d");
+      const ctx3 = document
+        .getElementById("voiceAnalysisChart")
+        .getContext("2d");
+      const ctx4 = document.getElementById("mobileAppChart").getContext("2d");
+
+      const chartData = {
+        labels: [
+          "June 2023",
+          "July 2023",
+          "Aug 2023",
+          "Sep 2023",
+          "Oct 2023",
+          "Nov 2023",
+          "Dec 2023",
+          "Jan 2024",
+          "Feb 2024",
+          "Mar 2024",
+        ],
+        datasets: [
+          {
+            label: "Development Progress",
+            data: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+            backgroundColor: "rgba(40, 167, 69, 0.5)",
+            borderColor: "rgba(40, 167, 69, 1)",
+            borderWidth: 1,
+          },
+        ],
+      };
+
+      new Chart(ctx1, {
+        type: "line",
+        data: chartData,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+
+      new Chart(ctx2, {
+        type: "line",
+        data: chartData,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+
+      new Chart(ctx3, {
+        type: "line",
+        data: chartData,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+
+      new Chart(ctx4, {
+        type: "line",
+        data: chartData,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
